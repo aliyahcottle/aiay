@@ -28,7 +28,7 @@ class TopNavigation extends Component {
 
     return(
 
-      <View style={{ width: 300, paddingTop: 20, backgroundColor: 'transparent', flexDirection:'row', justifyContent:'space-between'}}>
+      <View style={{ flex:1, padding: 20, backgroundColor: 'transparent', flexDirection:'row', justifyContent:'space-between'}}>
 
         <TouchableHighlight style={{}} onPress={this._onPressButton}>
             <View><Icon name='search'/></View>
@@ -170,9 +170,9 @@ class TopicBanner extends Component {
 
   render(){
     return(
-      <View style={{margin:30,  width: 290,  padding: 10, backgroundColor:'white', flexDirection: 'row'}}>
+      <View style={{ margin:30, padding: 10, backgroundColor:'white', flexDirection: 'row'}}>
       
-       <Text style={{flex: 1, textAlign: 'center'}}>Business Development</Text>
+       <Text style={{flex: 1, textAlign: 'center'}}>{this.props.pillar}</Text>
 
       </View>
     );
@@ -213,7 +213,7 @@ class ArticleTitleCard extends Component {
 
   render(){
     return(
-      <View style={{flex:1, backgroundColor: 'blue', width: 300, height: 200, justifyContent:'space-between'}}>
+      <View style={{backgroundColor: 'blue', width: 300, zIndex: 1, height: 200}}>
 
         <ArticleTripleButtons/>
 
@@ -231,7 +231,7 @@ class ArticleStory extends Component {
   render(){
     return(
 
-      <View style={{flex:1}}>
+      <View style={{flex:1, paddingTop: 30}}>
       <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </Text>
 
@@ -244,9 +244,9 @@ class ScrollUp extends Component {
 
   render(){
     return(
-      <View style={{ width: 300, flexDirection: 'row', backgroundColor: 'green', padding: 10, alignItems: 'center', marginTop: -30}}>
+      <View style={{zIndex: -1, flexDirection: 'row', backgroundColor: 'green', padding: 10, alignItems: 'center', marginTop: -30}}>
 
-       <Icon style={{justifyContent: 'center',  alignItems: 'center', marginTop:25}} reverse name='expand-less'/>
+       <Icon style={{flex:1, flexDirection:'row', justifyContent: 'center',  alignItems: 'center', marginTop:25}} reverse name='expand-less'/>
 
       </View>
     )
@@ -260,7 +260,7 @@ export default class aiay extends Component {
     super(props);
 
     this.state = {
-      test: [ {pillar: 'Love & Relationships', date: 'TODAY'}, {pillar: 'Love & Relationships', date: 'TODAY'}, {pillar: 'Love & Relationships', date: 'TODAY'}]
+      test: [ {pillar: 'Love & Relationships', date: 'TODAY'}, {pillar: 'Business Development', date: 'TODAY'}, {pillar: 'Love & Relationships', date: 'TODAY'}]
     };
   }
 
@@ -269,19 +269,39 @@ export default class aiay extends Component {
 
 
 
-      <ScrollView contentContainerStyle={{flex:1, width: 450, backgroundColor:'red'}}>
+      //Individual article scroll view
+      <ScrollView contentContainerStyle={{borderColor: 'black', width: 420, backgroundColor:'#444'}}>
 
         <TopNavigation/>
 
-        <TopicBanner/>
+      
+      <View style={{flex: 1, height:600, justifyContent:'space-between'}}>
 
+        <View>
+        <TopicBanner pillar={item.pillar}/>
+        </View>
+
+        <View style={{alignItems:'center'}}>
 
         <ArticleTitleCard/>
 
 
+
         <ScrollUp/>
 
+        </View>
+
+        </View>
+
         <ArticleStory />
+
+        <ArticleStory />
+   
+      <ArticleStory />
+
+        <ArticleStory />
+   
+
 
 
       
@@ -297,8 +317,8 @@ export default class aiay extends Component {
   render() {
     return (
 
-    <View style={{flex:1, backgroundColor:'yellow'}}>
-    <ScrollView contentContainerStyle={{flex:1}}>
+    <View style={{flex:1}}>
+   
       <FlatList 
       style={{flex:1}}
       horizontal
@@ -306,7 +326,7 @@ export default class aiay extends Component {
       renderItem={({ item }) => this._renderArticles(item)}
       />
 
-      </ScrollView>
+
       </View>
 
     );
