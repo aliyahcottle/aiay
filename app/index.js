@@ -10,27 +10,16 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView, TouchableHighlight, TouchableWithoutFeedback, Alert, FlatList
+  ScrollView, TouchableHighlight, Alert, Modal, FlatList
 } from 'react-native';
-
-import Modal from 'react-native-modal'
-
 
 
 
 var REQUEST_URL = 'https://aliyahrcottle.xyz/aiay/wp-json/wp/v2/aiay-post/';
 
 
+
 class TopNavigation extends Component {
-
-  state = {
-    dropdownNavigation: false
-  }
-
-  _showModal = () => this.setState({ dropdownNavigation: true })
-
-  _hideModal = () => this.setState({ dropdownNavigation: false })
-
 
   _onPressButton(){
     Alert.alert('You tapped the button');
@@ -40,14 +29,14 @@ class TopNavigation extends Component {
 
     return(
 
-      <View style={{padding: 20, zIndex:100, backgroundColor:'#444', flexDirection:'row', justifyContent:'space-between'}}>
+      <View style={{ flex:1, padding: 20, backgroundColor: 'transparent', flexDirection:'row', justifyContent:'space-between'}}>
 
-        <TouchableHighlight>
+        <TouchableHighlight style={{}} onPress={this._onPressButton}>
             <View><Icon name='search'/></View>
         </TouchableHighlight>
 
 
-        <TouchableHighlight onPress={this._showModal}>
+        <TouchableHighlight onPress={this._onPressButton}>
             <View><Text style={{textAlign: 'center' }}>AIAY</Text></View>
         </TouchableHighlight>
 
@@ -56,33 +45,6 @@ class TopNavigation extends Component {
           <View><Icon name='sort'/></View>
         </TouchableHighlight>
 
-
-<TouchableWithoutFeedback onPress={this._hideModal}>
-       <Modal
-          style={{flex:1, justifyContent:'center', alignItems:'center'}}
-          animationIn={'fadeInDownBig'}
-          animationInTiming={500}
-          animationOut={'fadeOutUpBig'}
-          animationOutTiming={200}
-          backdropOpacity={0.90}
-          isVisible={this.state.dropdownNavigation}>
-
-
-          <View style={{marginTop: 22}}>
-          <View>
-             <TouchableHighlight onPress={this._onPressButton}>
-          <View style={{fontSize: 56, color: 'white'}}><Icon name='sort'/></View>
-        </TouchableHighlight>
-
-            <Text style={{fontSize: 56, color: 'white'}}>Hello World!</Text>
-            <Text style={{fontSize: 56, color: 'white'}}>Hello World!</Text>
-            <Text style={{fontSize: 56, color: 'white'}}>Hello World!</Text>
-    
-
-          </View>
-         </View>
-          </Modal>
-          </TouchableWithoutFeedback>
 
       </View>
     );
@@ -307,32 +269,32 @@ export default class aiay extends Component {
     return(
 
 
-      <ScrollView contentContainerStyle={{borderColor: 'black', zIndex: -1, width: 420, marginTop: -20, backgroundColor:'#444'}} stickyHeaderIndices={[0, 6]}>
 
-        <TopicBanner pillar={item.pillar}/>
+      //Individual article scroll view
+      <ScrollView contentContainerStyle={{borderColor: 'black', width: 420, backgroundColor:'#444'}}>
+
+        <TopNavigation/>
 
       
-      <View style={{flex: 1, height:520, justifyContent:'flex-end'}}>
+      <View style={{flex: 1, height:600, justifyContent:'space-between'}}>
+
+        <View>
+        <TopicBanner pillar={item.pillar}/>
+        </View>
 
         <View style={{alignItems:'center'}}>
 
         <ArticleTitleCard date={item.date}/>
 
+
+
         <ScrollUp/>
 
         </View>
 
-      </View>
-
+        </View>
 
         <ArticleStory />
-
-         <ArticleStory />
-
-          <ArticleStory />
-           <ArticleStory />
-
-        <TopicBanner pillar={'hello'}/>
 
         <ArticleStory />
    
@@ -340,9 +302,12 @@ export default class aiay extends Component {
 
         <ArticleStory />
    
+
+
+
+      
+
   </ScrollView>
-
-
 
 
 
@@ -354,7 +319,6 @@ export default class aiay extends Component {
     return (
 
     <View style={{flex:1}}>
-       <TopNavigation/>
    
       <FlatList 
       style={{flex:1}}
